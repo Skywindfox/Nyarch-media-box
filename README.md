@@ -22,13 +22,11 @@ It all started with the Debian boxed installation media meme, which was born bec
 
 本项目使用字体有：
 
-```
 - Noto Sans
 - Noto Sans CJK SC 
 - Montserrat
 - Inconsolata
 - DejaVu Sans
-```
 
 ### For English Users
 
