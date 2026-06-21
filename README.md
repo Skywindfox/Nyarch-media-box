@@ -8,7 +8,7 @@ This is a graphic design for Nyarch Linux boxed installation media, inspired by 
 
 一切的开始都是那个 Debian 盒装安装介质 的meme , 因为过分类似某品牌的**雌二醇药物**外包装从而诞生。那这个药物作为 femboy 最喜欢的药物之一（特指**非正常**的那种），我们给面向**御宅族**或者Femboy的发行版Nyarch做一个盒子似乎也没有什么问题吧喵(
 
-It all started with the Debian boxed installation media meme, which was born because it closely resembled the packaging of a certain brand of estradiol medication. Since that medication is one of the favourites among femboys (especially the "non‑normal" kind), it seems perfectly fine for us to make a box for Nyarch – a distribution aimed at **otaku** or femboys – right? Nya~ 😸
+It all started with the Debian boxed installation media meme, which was born because it closely resembled the packaging of a certain brand of **estradiol medication**. Since that medication is one of **the favourites among femboys** (especially the "non‑normal" kind), it seems perfectly fine for us to make a box for Nyarch – a distribution aimed at **otaku** or femboys – right? Nya~ 😸
 
 ---
 
