@@ -1,0 +1,388 @@
+% TODO: The current content is insufficient to fill two pages (front and back of A4), so some parts are commented out; will be improved later
+
+\documentclass{article}
+\setlength\parindent{0pt}
+\pagenumbering{gobble}
+
+\usepackage{geometry}
+\geometry{papersize={210mm,297mm}}
+\geometry{left=9mm,right=9mm,top=9mm,bottom=9mm}
+
+\usepackage{fontspec}
+\setmainfont{DejaVu Sans}[Scale=0.9]
+
+\usepackage{xeCJK}
+\CJKfamily{zhsong}
+
+\usepackage[svgcolors]{xcolor}
+\usepackage{longfbox}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{xpatch}
+\usepackage{tipa}
+\usepackage[export]{adjustbox}
+\usepackage{enumitem}
+\usepackage{mdframed}
+
+\usepackage{multirow}
+\usepackage{tabularx}
+\renewcommand\tabularxcolumn[1]{m{#1}} % for vertical centering text in X column
+
+\usepackage{multicol}
+\usepackage[most]{tcolorbox}
+\usepackage{amssymb}
+\setlength{\columnsep}{3mm}
+
+\usepackage[explicit,compact]{titlesec}
+\titleformat{\section}{\normalfont\bfseries}{}{0pt}{[#1]}
+
+% Oh, all‑powerful StackExchange!
+% https://tex.stackexchange.com/questions/475466/latex-three-column-layout-merging-two-of-them-at-the-begining
+%
+\newlength{\abstractwidth}
+\newlength{\columnshrink}
+\newsavebox{\twocolinsert}
+%
+\makeatletter
+\newlength{\resized@col}
+\newcounter{column@count}
+%
+\xpatchcmd{\multi@column@out}{
+	\process@cols\mult@gfirstbox{%
+		\setbox\count@
+		\vsplit\@cclv to\dimen@
+		\set@keptmarks
+		\setbox\count@
+		\vbox to\dimen@
+		{\unvbox\count@ \ifshr@nking\vfilmaxdepth\fi}%
+	}%
+}{
+	\process@cols\mult@gfirstbox{%
+		\global\advance\c@column@count\@ne
+		\resized@col\dimen@%
+		\ifnum\c@column@count=\tw@
+				\advance\resized@col-\columnshrink
+		\fi%
+		\setbox\count@
+		\vsplit\@cclv to\resized@col
+		\set@keptmarks
+		\setbox\count@
+		\vbox to\dimen@{
+			\ifnum
+				\c@column@count=\tw@ \vspace*{\columnshrink}
+			\fi
+			\unvbox\count@
+			\ifshr@nking\vfilmaxdepth\fi
+		}%
+	}%
+}{\typeout{Success}}{\typeout{Failure}}
+\makeatother
+
+% for designing header
+\newsavebox\mysavebox
+\newenvironment{imgminipage}[2][]{%
+   \def\imgcmd{\includegraphics[width=\wd\mysavebox, height=\dimexpr\ht\mysavebox+\dp\mysavebox\relax, #1]{#2}}%
+   \begin{lrbox}{\mysavebox}%
+   \begin{minipage}%
+}{%
+   \end{minipage}
+   \end{lrbox}%
+   \sbox\mysavebox{\setlength{\fboxrule}{0pt}\fbox{\usebox\mysavebox}}%
+   \mbox{\rlap{\raisebox{-\dp\mysavebox}{\imgcmd}}\usebox\mysavebox}%
+}
+
+\renewcommand{\labelitemi}{$\blacktriangleright$}
+
+\tcbset{
+    frame code={}
+    center title,
+    left=0pt,
+    right=0pt,
+    top=6pt,
+    bottom=0pt,
+    colback=gray!40,
+    colframe=white,
+    enlarge left by=0mm,
+    boxsep=0pt,
+    arc=0pt,outer arc=0pt,
+}
+
+\begin{document}
+\begin{multicols*}{3}
+
+	\setlength{\abstractwidth}{2\linewidth}
+	\addtolength{\abstractwidth}{\columnsep}
+	\savebox{\twocolinsert}{
+	\begin{minipage}{\abstractwidth}
+		\noindent Approval date: 2026-06-19
+		\newline Revision date: 2026-06-18
+		\newline
+
+		 \begin{mdframed}[leftline=false, rightline=false, innertopmargin=0pt, innerbottommargin=0pt, innerrightmargin=0pt, innerleftmargin=2em]
+		 	\includegraphics[width=0.15\abstractwidth, valign=m]{assets/debian-text.eps}
+		 	\hfill
+		 	\begin{imgminipage}{assets/header-background.eps}[t]{0.7\abstractwidth}
+		 		\Large \textbf{Boxed Installation Media Manual}
+		 		\normalsize Please read this manual carefully and use under the supervision of an administrator
+		 	\end{imgminipage}
+		 \end{mdframed}
+
+		\includegraphics[width=\abstractwidth]{assets/header.eps}
+
+
+		\begin{mdframed}[hidealllines=true, innerbottommargin=.5em, innertopmargin=0pt]
+			\sffamily
+
+			{\centering \textbf{WARNING} \par}
+
+			Regardless of whether used together with other operating systems, installing Nyarch Linux carries the risk of losing all contents on your disk. (See [Adverse Reactions].)
+
+			The information and opinions in this manual are not intended to constitute legal advice; legal advice should be obtained by consulting a lawyer.
+
+			Some hardware manufacturers refuse to tell us how to write drivers for their hardware. Others require us to sign non‑disclosure agreements to access relevant documentation, preventing us from releasing driver source code as free software. Since we are not authorised to use these documents, they cannot be made to work under Nyarch Linux.
+		\end{mdframed}
+	\end{minipage}}
+	\setlength{\columnshrink}{\ht\twocolinsert}
+	\addtolength{\columnshrink}{\dp\twocolinsert}
+	\noindent\usebox{\twocolinsert}
+
+
+	\begin{tcolorbox}
+	\section*{Distribution Name}
+	\end{tcolorbox}
+	\begin{tabularx}{\linewidth}{@{}ll@{}}
+		Common name: & Nyarch Linux \\
+		Official name: & Nyarch Linux \\
+		English pronunciation: & \textipa{/ˈnjaːtʃ ˈlɪn.əks/}
+	\end{tabularx}
+
+	\medskip
+
+
+	\begin{tcolorbox}
+	\section*{Description}
+	\end{tcolorbox}
+
+	Nyarch Linux is an Arch Linux‑based perfect distribution for degenerate weebs. While providing the latest stable software as much as possible through rolling updates, it also offers the best open‑source applications every otaku enthusiast must pre‑install.
+
+	Kernel version: 26.04
+
+	\medskip
+
+
+	\begin{tcolorbox}
+	\section*{Nature}
+	\end{tcolorbox}
+
+	This system is an operating system using the GNU/Linux kernel. After installation, it can be booted via UEFI or Legacy BIOS mode.
+
+	\medskip
+
+
+	\begin{tcolorbox}
+	\section*{Supported Platforms}
+	\end{tcolorbox}
+
+	\begin{itemize}
+		\item Only computers, servers, and embedded devices using the x86‑64 (AMD64) architecture are supported.
+		\item The actual platform compatibility of the installation media in this box depends on the specific hardware.
+	\end{itemize}
+
+
+	\begin{tcolorbox}
+	\section*{Specifications}
+	\end{tcolorbox}
+
+	1 bootable USB flash drive preloaded with the Nyarch Linux 26.04 installation image.
+
+	\medskip
+
+	\begin{tcolorbox}
+	\section*{Instructions for Use}
+	\end{tcolorbox}
+
+	Boot your device using the USB drive.
+
+	Access your device's BIOS/UEFI settings. The method varies by device. If you do not know how to access the BIOS, mash the F key while shouting “Hora! Hora! Hora!” during startup until you get it right.
+	Locate the boot order settings and place your USB drive first. Alternatively, if you have a boot menu, boot from there. Finally, save and exit.
+
+	You will then enter the live environment, and the Nyarch installer will automatically launch. It will prompt you for locale settings and installation options. Fill in your preferences, click OK, wait for the installation to complete, and reboot!
+
+	\medskip	
+
+	\begin{tcolorbox}
+	\section*{Adverse Reactions}
+	\end{tcolorbox}
+
+	Nyarch Linux maintains a bug tracking system that archives defect reports submitted by users and developers. Each bug report is assigned a number and tracked long‑term until it is marked as fixed.
+	Furthermore, the Nyarch team is relatively small. In addition to the normal rolling‑release risks of Arch, you may encounter project‑specific bugs.
+
+	\medskip
+
+
+	\begin{tcolorbox}
+	\section*{Precautions}
+	\end{tcolorbox}
+	\begin{itemize}[leftmargin=*]
+
+		\item Meet the minimum hardware requirements
+
+		The table below shows the requirements for memory and storage.
+
+		{\small\begin{tabularx}{\linewidth}{|X|X|X|X|}
+			\hline
+			Category & RAM\newline (minimum) & RAM\newline (recommended) & Storage \\
+			\hline
+			GNOME & 3 GB & 6 GB & 30 GB \\
+			\hline
+			KDE Plasma & 3 GB & 6 GB & 30 GB \\
+			\hline
+		\end{tabularx}}
+
+		Depending on your needs, you might be able to install the system with less than the above specifications. However, most users who ignore these recommendations will fail.
+
+		\item Devices requiring firmware
+
+		In addition to device drivers, some hardware also requires firmware or microcode to be loaded before use.
+
+	\end{itemize}
+
+
+	\begin{tcolorbox}
+	\section*{Contraindications}
+	\end{tcolorbox}
+
+	If any of the following situations occur or are about to occur during operation, stop immediately and prepare for system recovery.
+
+	\begin{itemize}[leftmargin=*]
+		\setlength{\itemsep}{0pt}
+		\setlength{\parskip}{0pt}
+		\setlength{\parsep}{0pt}
+
+		\item Running recursive deletion as root from the root directory
+		\item Using the dd command without confirming the device name
+		\item Formatting without confirming the device name
+		\item Using command redirection without confirming the action
+		\item Executing scripts from the Internet without prior verification
+		\item Running high‑load workloads for extended periods on poorly cooled devices
+	\end{itemize}
+
+    % commented parts are left as is
+
+	 \begin{tcolorbox}
+	 \section*{Version Updates}
+	 \end{tcolorbox}
+	 	\begin{itemize}[leftmargin=*]
+		\setlength{\itemsep}{0pt}
+		\setlength{\parskip}{0pt}
+		\setlength{\parsep}{0pt}
+
+		\item Nyarch will be updated periodically. Simply use Nyarch Updater to apply the updates.
+
+	\end{itemize}
+
+
+	\begin{tcolorbox}
+	\section*{Interactions with Other Systems}
+	\end{tcolorbox}
+	\begin{itemize}[leftmargin=*]
+		\setlength{\parindent}{0pt}
+
+		\item Interaction with Windows
+
+		When you have a dual‑boot configuration and another operating system (e.g. Windows) accesses the same file system, this can cause problems and data loss. In such cases, the actual state of the file system may differ from what Windows believes after “fast startup”, and further writes may corrupt the file system. Therefore, in dual‑boot setups, it is necessary to disable the “Fast Startup” feature in Windows to avoid file system corruption.
+
+		In rare cases, it has been observed that after a Windows system update, the boot configuration may be broken, preventing Nyarch Linux from starting. Also, if the boot information is written to the MBR of the same physical disk as Windows during installation, Windows may fail to boot afterwards.
+
+		\item Interaction with other Linux distributions
+
+		Mixing with Manjaro may cause the AUR to crash.
+
+	\end{itemize}
+
+
+	\begin{tcolorbox}
+	\section*{Storage}
+	\end{tcolorbox}
+
+	-40 °C to +70 °C
+
+	Store all installation media properly and keep out of reach of non‑installation personnel.
+
+	\medskip
+
+
+	\begin{tcolorbox}
+	\section*{Packaging Content}
+	\end{tcolorbox}
+
+	One USB 3.0/2.0‑compatible flash drive preloaded with the Nyarch Linux 26.04 installation image.
+
+	1 unit per box
+
+	\medskip
+
+
+	\begin{tcolorbox}
+	\section*{Shelf Life}
+	\end{tcolorbox}
+
+	Nyarch Linux uses a semi‑rolling upgrade model. Normal software updates only require a single command to upgrade all packages to the latest versions. However, Nyarch version updates rely on Nyarch Updater. For this reason, support for Nyarch Linux is valid indefinitely.
+
+	\medskip
+
+
+	\begin{tcolorbox}
+	\section*{Compliance Standards}
+	\end{tcolorbox}
+	\begin{tabularx}{\linewidth}{@{}ll@{}}
+		\multirow{4}{*}{}{Open‑source licences:} & GNU GPL (primary)\\
+		~ & GNU LGPL \\
+		~ & BSD \\
+		~ & and other licence terms \\
+	\end{tabularx}
+
+	\medskip
+
+
+	\begin{tcolorbox}
+	\section*{Approval Number}
+	\end{tcolorbox}
+
+	This manual is licensed under CC‑BY‑SA 3.0.
+
+	\medskip
+
+
+% 	\begin{tcolorbox}
+% 	\section*{Manufacturer}
+% 	\end{tcolorbox}
+%
+% 	Debian Project
+%
+% 	\medskip
+
+
+	\begin{tcolorbox}
+	\section*{Manual Credits}
+	\end{tcolorbox}
+	\begin{tabularx}{\linewidth}{@{}ll@{}}
+		\multirow{2}{*}{}{Editors:} & @Skywind\_Fox\\
+		Translator: & @Skywind\_Fox\\
+		Translation proofreader: & \\
+		Typesetting: & @Skywind\_Fox\\
+		GitHub: & Skywindfox/Nyarch-media-box\\
+	\end{tabularx}
+
+	\medskip
+
+
+	\vfill
+	\begin{flushright}
+		Nyarch Linux\linebreak 20260618
+		\linebreak
+		\newline
+	\end{flushright}
+
+\end{multicols*}
+\end{document}
